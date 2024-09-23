@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roasting HP</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Roasting HP</h1>
+        <form id="roastForm">
+            <label for="merk">Merk HP</label>
+            <input type="text" name="merk" id="merk" placeholder="Contoh: Samsung" required>
+            
+            <label for="chipset">Chipset</label>
+            <input type="text" name="chipset" id="chipset" placeholder="Contoh: Exynos" required>
+
+            <label for="ram">RAM</label>
+            <input type="text" name="ram" id="ram" placeholder="Contoh: 8GB" required>
+
+            <label for="battery">Baterai</label>
+            <input type="text" name="battery" id="battery" placeholder="Contoh: 4000mAh" required>
+
+            <label for="camera">Kamera</label>
+            <input type="text" name="camera" id="camera" placeholder="Contoh: 64MP" required>
+
+            <button type="submit">Roasting</button>
+        </form>
+
+        <div class="roasting-result" style="display: none;">
+            <h2>Hasil Roasting:</h2>
+            <p id="roastText"></p>
+        </div>
+    </div>
+
+    <script>
+        $('#roastForm').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/roast',
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('#roastText').text(data.roast);
+                    $('.roasting-result').show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
